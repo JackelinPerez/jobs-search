@@ -12,7 +12,7 @@ class Select extends React.Component{
         this.state = {
             name: this.props.name,
             options: this.props.options,
-            value: 0,
+            value: 0
         }
     }
 

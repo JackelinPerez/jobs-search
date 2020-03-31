@@ -6,7 +6,7 @@ import Search from './components/body/search'
 import Sort from './components/body/sort'
 import Banner from './components/header/banner'
 import {filters} from './utils/selectList'
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap'
 
 class App extends React.Component {
 
@@ -14,7 +14,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       data:'',
-      sort:'Reciente',
+      sort:'',
       filter: {
         type:'Todos',
         value:'*'
@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   getResponseSort = (result) =>{
-    this.setState({sort: result})
+    this.setState({sort: result.value})
   }
 
   getResponseFilter = (result) =>{

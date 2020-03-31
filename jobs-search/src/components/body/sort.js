@@ -5,15 +5,12 @@ class Sort extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            value: ''
+            value: 0
         }
     }
 
     getResponseSelect(result){
-        this.setState(
-            {value: result.value},
-            () => this.props.callBack(this.state.value)            
-            )
+        this.setState({value: result.value}, () => this.props.callBack({value: this.state.value}))
     }
 
     render(){

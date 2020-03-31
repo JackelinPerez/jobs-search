@@ -1,12 +1,12 @@
 import React, {useState, useMemo} from 'react'
 import {useQuery} from '@apollo/react-hooks'
-import ModelCard from '../components/body/modelCard'
+import CardModel from '../components/body/card'
 import {Alert, Spinner} from 'react-bootstrap'
 import fsort from '../functions/sort'
 import ffilter from '../functions/filter'
 import fsearch from '../functions/search'
 
-    const Jobs = (props) => {
+const Jobs = (props) => {
     const { loading, error, data } = useQuery(props.query);
     const [newBd, setNewBd] = useState([]);
     const [bd, setBd] = useState([]);
@@ -17,17 +17,17 @@ import fsearch from '../functions/search'
     }, [data]);
 
     //Cambio en sort
-    useMemo(() => { 
+    useMemo(() => {
         setNewBd(fsort(newBd, props.sort))
     }, [props.sort]);
 
-    //Cambio en sort
+    //Cambio en filter
     useMemo(() => { 
         setNewBd(ffilter(bd, props.filter.type, props.filter.value))
     }, [props.filter]);
 
     //Cambio en search
-    useMemo(() => { 
+    useMemo(() => {
         setNewBd(fsearch(bd, props.search));
     }, [props.search]);
     
@@ -38,16 +38,19 @@ import fsearch from '../functions/search'
     return newBd.map((job, id) => {
         const postdate = job.postedAt.slice(0,job.postedAt.indexOf('T'));
         const posthour = job.postedAt.slice(job.postedAt.indexOf('T')+1, job.postedAt.length - 5);
-        return(<ModelCard 
+        return(<CardModel 
             key={id} id={id}
-            job={job.title}
+            title={job.title}
             company={job.company.name}
             locationName={job.locationNames}
             citie={(job.cities[0]!==undefined)?job.cities[0].name:''}
             countrie={(job.countries[0]!==undefined)?job.countries[0].name:''}
             postdate={postdate}
-            posthour={posthour}>
-            </ModelCard>)
+            posthour={posthour}
+            description={job.description}
+            tags={['angular','java','python']}
+            >
+            </CardModel>)
     });
 }
 
